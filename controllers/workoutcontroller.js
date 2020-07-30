@@ -35,15 +35,19 @@ class WorkoutController {
     async saveExcercise(exercise, workoutId) {
 
         let workout = null;
+        try {
+            if (workoutId)
+                workout = await WorkoutModel.findOne({ _id: workoutId });
 
-        if (workoutId)
-            workout = await WorkoutModel.findOne({ _id: workoutId });
+            if (workout == null)
+                workout = new WorkoutModel();
 
-        if (workout == null)
-            workout = new WorkoutModel();
+            workout.exercises.push(exercise);
+            await workout.save();
 
-        workout.exercises.push(exercise);
-        await workout.save();
+        } catch (error) {
+            console.error(`COULD NOT SAVE! YIEEE EDE3 B3N AS3M KORAA NIE ${error}`);
+        }
 
         return workout;
     }
@@ -77,7 +81,7 @@ class WorkoutController {
         response.sendfile(path.join(__dirname, "../public/stats.html"));
     }
 
-    async getWorkOutRange(request,response){
+    async getWorkOutRange(request, response) {
         let workouts = await WorkoutModel.find().lean();
         response.json(workouts);
     }
