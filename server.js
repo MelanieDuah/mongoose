@@ -31,8 +31,6 @@ async function connectMongoose(){
     });
   }catch(error){
      console.error("still can't connect to mongoose");
-     console.error("----------------------------------------------------------------------------------------------");
-     console.error(error);
-     console.error("----------------------------------------------------------------------------------------------");
+
   }
 }
