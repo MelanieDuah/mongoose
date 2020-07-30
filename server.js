@@ -23,7 +23,7 @@ app.listen(PORT, () => {
 async function connectMongoose(){
   try{
     console.log(`MONGOOSE IS: ${process.env.MONGODB_URL}`);
-    
+
     await mongoose.connect(process.env.MONGODB_URL || "mongodb://localhost/workoutdb", {
       useNewUrlParser: true,
       useFindAndModify: false,
@@ -31,5 +31,8 @@ async function connectMongoose(){
     });
   }catch(error){
      console.error("still can't connect to mongoose");
+     console.error("----------------------------------------------------------------------------------------------");
+     console.error(error);
+     console.error("----------------------------------------------------------------------------------------------");
   }
 }
